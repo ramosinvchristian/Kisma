@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = 'osonny_remake';
+$dbname = 'Kisma';
 $username = 'root';
 $password = '';
 $conn = new mysqli($host, $username, $password, $dbname);
