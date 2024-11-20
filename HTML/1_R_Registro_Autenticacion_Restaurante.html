@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | Restaurante</title>
+    <link rel="stylesheet" href="../CSS/1_U_R_E_Estilos.css">
+</head>
+<body>
+    <div class="contenedor">
+        <h1 class="titulo-grande">OSONNY</h1>
+        <h2 class="titulo-mediano">DELIVERY</h2>
+        <p class="subtitulo">Haz que el cliente venga hacia ti</p>
+    
+        <form action="../PHP/1_R_Registro_Restaurantes.php" method="POST">
+            <h3>Registro de Restaurante</h3>
+
+            <div class="form-group">
+                <label for="nombre-restaurante">Nombre del restaurante*</label>
+                <input type="text" id="nombre-restaurante" name="nombre-restaurante" required>
+            </div>
+
+            <div class="form-group">
+                <label for="categoria">Categoría*</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="">Selecciona una categoría</option>
+                    <option value="Hamburguesa">Hamburguesa</option>
+                    <option value="Sushi">Sushi</option>
+                    <option value="Helados">Helados</option>
+                    <option value="Barbacoa">Barbacoa</option>
+                    <option value="Pizza">Pizza</option>
+                    <option value="Tacos">Tacos</option>
+                    <option value="Pollo">Alitas y Pollo</option>
+                    <option value="Antojitos">Antojitos</option>
+                    <option value="Gorditas">Gorditas</option>
+                    <option value="Tortas">Tortas</option>
+                    <option value="Otros">Otros</option>
+                </select>
+                <input type="text" id="otra-categoria" name="otra-categoria" placeholder="Especifica otra categoría" style="display: none;">
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion">Descripción*</label>
+                <textarea id="descripcion" name="descripcion" rows="4" placeholder="¿Quiénes somos?" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="direccion">Dirección*</label>
+                <input type="text" id="direccion" name="direccion" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ciudad">Ciudad*</label>
+                <input type="text" id="ciudad" name="ciudad" required>
+            </div>
+
+            <div class="form-group">
+                <label for="codigo-postal">Código postal*</label>
+                <input type="text" id="codigo-postal" name="codigo-postal" required>
+            </div>
+
+            <div class="form-group">
+                <label for="horario">Horario de servicio*</label>
+                <input type="text" id="horario" name="horario" placeholder="8:00 AM - 10:00 PM" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono-restaurante">Teléfono*</label>
+                <input type="tel" id="telefono-restaurante" name="telefono-restaurante" required>
+            </div>
+
+            <div class="form-group">
+                <label for="correo-restaurante">Correo*</label>
+                <input type="email" id="correo-restaurante" name="correo-restaurante" required>
+            </div>
+
+            <h3>Datos del Gerente</h3>
+
+            <div class="form-group">
+                <label for="nombre-gerente">Nombre completo*</label>
+                <input type="text" id="nombre-gerente" name="nombre-gerente" required>
+            </div>
+
+            <div class="form-group">
+                <label for="usuario-gerente">Nombre de usuario*</label>
+                <input type="text" id="usuario-gerente" name="usuario-gerente" required>
+            </div>
+
+            <div class="form-group">
+                <label for="correo-gerente">Correo*</label>
+                <input type="email" id="correo-gerente" name="correo-gerente" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contrasena-gerente">Contraseña*</label>
+                <input type="password" id="contrasena-gerente" name="contrasena-gerente" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmar-contrasena-gerente">Verificar contraseña*</label>
+                <input type="password" id="confirmar-contrasena-gerente" name="confirmar-contrasena-gerente" required>
+            </div>
+
+            <div class="form-group">
+                <label for="licencia-propietario">Licencia de propietario*</label>
+                <input type="file" id="licencia-propietario" name="licencia-propietario" accept=".pdf" required>
+            </div>
+
+            <div class="form-group">
+                <label for="licencia-comerciante">Licencia de comerciante*</label>
+                <input type="file" id="licencia-comerciante" name="licencia-comerciante" accept=".pdf" required>
+            </div>
+
+            <div class="captcha">
+                <p>Selecciona la imagen que contiene un árbol*</p>
+                <div class="imagen">
+                    <input type="radio" id="img1" name="captcha" value="img1">
+                    <label for="img1"><img src="../IMAGES/1_U_R_E_Imagen_Arbol.jpg" alt="Imagen 1"></label>
+                </div>
+                <div class="imagen">
+                    <input type="radio" id="img2" name="captcha" value="img2">
+                    <label for="img2"><img src="../IMAGES/1_U_R_E_Imagen_Pony.jpg" alt="Imagen 2"></label>
+                </div>
+            </div>
+    
+            <div class="recaptcha">
+                <p><input type="checkbox" id="robot" name="robot" required> No soy un robot</p>
+                <label for="robot"><img src="../IMAGES/1_U_R_E_Imagen_Recaptcha.png" alt="reCAPTCHA"></label>
+            </div>
+    
+            <div class="terminos">
+                <input type="checkbox" id="terminos" name="terminos" required>
+                <label for="terminos">Acepto los <a href="../HTML/1_R_Terminos_Condiciones_Restaurante.html" target="_blank">términos y condiciones</a></label>
+            </div>
+
+            <button type="submit">Registrarse</button>
+            <div class="terminos">
+                <a href="../HTML/1_R_Iniciar_Sesion_Restaurante.html">Iniciar Sesión</a></label>
+                </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('categoria').addEventListener('change', function() {
+            const otraCategoria = document.getElementById('otra-categoria');
+            otraCategoria.style.display = this.value === 'Otros' ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>

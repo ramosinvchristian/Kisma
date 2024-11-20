@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Osonny Delivery</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('../IMAGES/Fondo_Ossony.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 80%;
+            height: 80%;
+        }
+
+        .image-item {
+            text-align: center;
+            width: 30%;
+            cursor: pointer;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.1);
+        }
+
+        .caption {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #fff;
+            font-weight: bold;
+            padding: 5px;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            display: inline-block;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .image-item:hover .caption {
+            background-color: rgba(255, 255, 255, 0.7);
+            color: #000;
+            border-color: #000;
+        }
+
+        .image-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .admin-link {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.7em;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .admin-link:hover {
+            background-color: rgba(255, 255, 255, 0.7);
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <div class="image-item">
+            <a href="1_U_Registro_Autenticacion_Usuario.html">
+                <img src="../IMAGES/1_U_R_E_Imagen_Cliente.png" alt="Cliente">
+                <div class="caption">Cliente</div>
+            </a>
+        </div>
+        <div class="image-item">
+            <a href="1_E_Registro_Autenticacion_Empleado.html">
+                <img src="../IMAGES/1_U_R_E_Imagen_Empleado.png" alt="Empleado">
+                <div class="caption">Empleado</div>
+            </a>
+        </div>
+        <div class="image-item">
+            <a href="1_R_Registro_Autenticacion_Restaurante.html">
+                <img src="../IMAGES/1_U_R_E_Imagen_Restaurante.png" alt="Restaurante">
+                <div class="caption">Restaurante</div>
+            </a>
+        </div>
+    </div>
+    <a href="1_A_Registro_Autenticacion_Administrador.html" class="admin-link">Administrador</a>
+</body>
+</html>

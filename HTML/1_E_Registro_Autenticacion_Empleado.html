@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | Empleado</title>
+    <link rel="stylesheet" href="../CSS/1_U_R_E_Estilos.css">
+</head>
+<body>
+    <div class="contenedor">
+        <h1 class="titulo-grande">OSONNY</h1>
+        <h2 class="titulo-mediano">DELIVERY</h2>
+        <p class="subtitulo">Haz que el restaurante llegue al cliente</p>
+    
+        <form action="../PHP/1_E_Registro_Empleados.php" method="POST">
+            <h3>Registro | Empleado</h3>
+            <div class="form-group">
+                <label for="nombre-empleado">Nombre completo*</label>
+                <input type="text" id="nombre-empleado" name="nombre-empleado" required>
+            </div>
+            <div class="form-group">
+                <label for="usuario-empleado">Nombre de usuario*</label>
+                <input type="text" id="usuario-empleado" name="usuario-empleado" required>
+            </div>
+            <div class="form-group">
+                <label for="fecha-nacimiento">Fecha de nacimiento* (Debe ser mayor a 17 años)</label>
+                <input type="date" id="fecha-nacimiento" name="fecha-nacimiento" max="2007-12-31" required>
+            </div>
+            <div class="form-group">
+                <label for="telefono-empleado">Número de teléfono*</label>
+                <input type="tel" id="telefono-empleado" name="telefono-empleado" required>
+            </div>
+            <div class="form-group">
+                <label for="correo-empleado">Correo electrónico*</label>
+                <input type="email" id="correo-empleado" name="correo-empleado" required>
+            </div>
+            <div class="form-group">
+                <label for="contrasena-empleado">Contraseña*</label>
+                <input type="password" id="contrasena-empleado" name="contrasena-empleado" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmar-contrasena-empleado">Verificar contraseña*</label>
+                <input type="password" id="confirmar-contrasena-empleado" name="confirmar-contrasena-empleado" required>
+            </div>
+            <div class="form-group">
+                <label for="ine">INE* (Subir en formato PDF)</label>
+                <input type="file" id="ine" name="ine" accept=".pdf" required>
+            </div>
+
+            <div class="form-group">
+                <label for="licencia">Licencia de conducir* (Subir en formato PDF)</label>
+                <input type="file" id="licencia" name="licencia" accept=".pdf" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tipo-vehiculo">Tipo de vehículo*</label>
+                <select id="tipo-vehiculo" name="tipo-vehiculo" required>
+                    <option value="">Selecciona un tipo de vehículo</option>
+                    <option value="Motocicleta">Motocicleta</option>
+                    <option value="Automóvil">Automóvil</option>
+                    <option value="Camioneta">Camioneta</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="anio-vehiculo">Año del vehículo* (Debe ser mayor a 2018)</label>
+                <input type="number" id="anio-vehiculo" name="anio-vehiculo" min="2018" required>
+            </div>
+            <div class="form-group">
+                <label for="numero-placa">Número de placa*</label>
+                <input type="text" id="numero-placa" name="numero-placa" required>
+            </div>
+            <div class="form-group">
+                <label for="numero-cuenta">Número de cuenta / Clave bancaria*</label>
+                <input type="text" id="numero-cuenta" name="numero-cuenta" required>
+            </div>
+            <div class="captcha">
+                <p>Selecciona la imagen que contiene un árbol*</p>
+                <div class="imagen">
+                    <input type="radio" id="img1" name="captcha" value="img1">
+                    <label for="img1"><img src="../IMAGES/1_U_R_E_Imagen_Arbol.jpg" alt="Imagen 1"></label>
+                </div>
+                <div class="imagen">
+                    <input type="radio" id="img2" name="captcha" value="img2">
+                    <label for="img2"><img src="../IMAGES/1_U_R_E_Imagen_Pony.jpg" alt="Imagen 2"></label>
+                </div>
+            </div>
+            <div class="recaptcha">
+                <p><input type="checkbox" id="robot" name="robot" required> No soy un robot</p>
+                <label for="robot"><img src="../IMAGES/1_U_R_E_Imagen_Recaptcha.png" alt="reCAPTCHA"></label>
+            </div>
+            <div class="terminos">
+                <input type="checkbox" id="terminos" name="terminos" required>
+                <label for="terminos">Acepto los <a href="../HTML/1_E_Terminos_Condiciones_Empleado.html" target="_blank">términos y condiciones</a></label>
+            </div>
+            <button type="submit">Registrarse</button>
+            <div class="terminos">
+                <a href="../HTML/1_E_Iniciar_Sesion_Empleado.html">Iniciar Sesión</a></label>
+                </div>
+        </form>
+    </div>
+</body>
+</html>

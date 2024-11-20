@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSONNY - Página Principal</title>
+    <link rel="stylesheet" href="../CSS/1_U_R_E_Estilos.css">
+</head>
+<body>
+    <header class="header">
+        <input 
+            type="text" 
+            placeholder="Buscar platillos o restaurantes..." 
+            id="search-bar" 
+            onclick="location.href='busqueda.html';"
+        >
+    </header>
+    <section class="categorias-principales">
+        <h2>Categorías Populares</h2>
+        <div class="categorias-container">
+            <button onclick="location.href='categorias.html?categoria=hamburguesa'">Hamburguesas</button>
+            <button onclick="location.href='categorias.html?categoria=sushi'">Sushi</button>
+            <button onclick="location.href='categorias.html?categoria=helados'">Helados</button>
+            <button onclick="location.href='categorias.html?categoria=barbacoa'">Barbacoa</button>
+            <button onclick="location.href='categorias.html?categoria=pizza'">Pizza</button>
+            <button onclick="location.href='categorias.html?categoria=tacos'">Tacos</button>
+            <button onclick="location.href='categorias.html?categoria=pollo'">Pollo</button>
+            <button onclick="location.href='categorias.html?categoria=antojitos'">Antojitos</button>
+            <button onclick="location.href='categorias.html?categoria=gorditas'">Gorditas</button>
+            <button onclick="location.href='categorias.html?categoria=tortas'">Tortas</button>
+        </div>
+    </section>
+    <section class="promos">
+        <h2>Promociones</h2>
+        <button onclick="location.href='promos.html'">Ver Promociones</button>
+    </section>
+    <section class="envio-gratis">
+        <h2>Envío Gratis</h2>
+        <button onclick="location.href='envio_gratis.html'">Ver Restaurantes</button>
+    </section>
+    <section class="restaurantes">
+        <h2>Restaurantes Disponibles</h2>
+        <div class="restaurantes-lista">
+            <div class="restaurante">
+                <img src="../images/restaurante_ejemplo.jpg" alt="Restaurante Ejemplo">
+                <div class="info-restaurante">
+                    <h3>Restaurante Ejemplo</h3>
+                    <p>⭐⭐⭐⭐⭐ (4.5/5)</p>
+                    <button onclick="location.href='restaurante.html?id=1'">Ver Menú</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
