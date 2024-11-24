@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | Administrador</title>
+    <link rel="stylesheet" href="1_Estilos.css">
+    <script>
+        function validarFormulario(event) {
+            const tokenIngresado = document.getElementById('token-administrador').value;
+            const tokenCorrecto = '1o2s3o4n5n6y7';
+
+            if (tokenIngresado !== tokenCorrecto) {
+                alert("El token es incorrecto. Por favor, ingresa el token correcto.");
+                event.preventDefault(); // Prevenir el envío del formulario
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="contenedor">
+        <h1 class="titulo-grande">Kisma</h1>
+        <h2 class="titulo-mediano">DELIVERY</h2>
+        <p class="subtitulo">!Bienvenido. Dominemos el sabor!</p>
+    
+        <form onsubmit="validarFormulario(event)">
+            <h3>Registro | Administrador</h3>
+
+            <div class="form-group">
+                <label for="nombre-administrador">Nombre completo*</label>
+                <input type="text" id="nombre-administrador" name="nombre-administrador" required>
+            </div>
+
+            <div class="form-group">
+                <label for="usuario-administrador">Nombre de usuario*</label>
+                <input type="text" id="usuario-administrador" name="usuario-administrador" required>
+            </div>
+
+            <div class="form-group">
+                <label for="correo-administrador">Correo electrónico*</label>
+                <input type="email" id="correo-administrador" name="correo-administrador" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contrasena-administrador">Contraseña*</label>
+                <input type="password" id="contrasena-administrador" name="contrasena-administrador" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmar-contrasena-administrador">Verificar contraseña*</label>
+                <input type="password" id="confirmar-contrasena-administrador" name="confirmar-contrasena-administrador" required>
+            </div>
+
+            <div class="form-group">
+                <label for="token-administrador">Token*</label>
+                <input type="text" id="token-administrador" name="token-administrador" required>
+                </div>
+
+            <div class="captcha">
+                <p>Selecciona la imagen que contiene un árbol*</p>
+                <div class="imagen">
+                    <input type="radio" id="img1" name="captcha" value="img1">
+                    <label for="img1"><img src="../../IMAGES/Arbol.jpg" alt="Imagen 1"></label>
+                </div>
+                <div class="imagen">
+                    <input type="radio" id="img2" name="captcha" value="img2">
+                    <label for="img2"><img src="../../IMAGES/Pony.jpg" alt="Imagen 2"></label>
+                </div>
+            </div>
+    
+            <div class="recaptcha">
+                <p><input type="checkbox" id="robot" name="robot" required> No soy un robot</p>
+                <label for="robot"><img src="../../IMAGES/Recaptcha.png" alt="reCAPTCHA"></label>
+            </div>
+    
+            <div class="terminos">
+                <input type="checkbox" id="terminos" name="terminos" required>
+                <label for="terminos">Acepto los <a href="../Administrador/1_Terminos_Condiciones.html" target="_blank">términos y condiciones</a></label>
+            </div>
+
+            <button type="submit">Registrarse</button>
+            <div class="terminos">
+                <a href="../Administrador/1_Iniciar_Sesion.html">Iniciar Sesión</a></label>
+                </div>
+        </form>
+    </div>
+</body>
+</html>
