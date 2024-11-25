@@ -1,5 +1,5 @@
 <?php
-require '../PHP/1_U_R_E_db_config.php';
+require '../db_config.php';
 session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre_usuario = htmlspecialchars(trim($_POST['nombre-usuario']));
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario_id'] = $user['id'];
             $_SESSION['nombre_usuario'] = $user['nombre_usuario'];
             echo "Redirigiendo a la página principal...";
-            header("Location: ../HTML/Cliente/1_U_Pagina_Principal_Usuario.html");
+            header("Location: ../../HTML/Cliente/1_Pagina_Principal.html");
             exit();
         } else {
             echo "Error: Contraseña incorrecta.";

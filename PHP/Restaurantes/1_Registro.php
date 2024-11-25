@@ -1,6 +1,13 @@
 <?php
-require '../PHP/1_U_R_E_db_config.php';
-
+require '../db_config.php';
+if ($conn->ping()) {
+    echo "Conexión exitosa a la base de datos.";
+} else {
+    echo "Error de conexión: " . $conn->error;
+}
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre_restaurante = htmlspecialchars(trim($_POST['nombre-restaurante']));
     $categoria = htmlspecialchars(trim($_POST['categoria']));
@@ -54,10 +61,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                       $codigo_postal, $horario, $telefono_restaurante, $correo_restaurante, 
                                       $nombre_gerente, $usuario_gerente, $correo_gerente, $hash_contrasena);
     if ($stmt->execute()) {
-        echo "Registro exitoso. Ahora puedes <a href='../HTML/1_R_Iniciar_Sesion_Restaurante.html'>Iniciar Sesión</a>.";
+        echo "Registro exitoso. Ahora puedes <a href='../../HTML/Restaurante/1_Iniciar_Sesion.html'>Iniciar Sesión</a>.";
     } else {
     if ($stmt->errno === 1062) {
-        echo "Error: El correo o nombre de usuario ya está registrado.";
+        echo "Error: El correo o nombre del propietario ya está registrado.";
     } else {
         echo "Error al registrar el restaurante: " . $stmt->error;
             }

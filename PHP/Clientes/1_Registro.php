@@ -1,5 +1,5 @@
 <?php
-require '../PHP/1_U_R_E_db_config.php';
+require '../db_config.php';
 if ($conn->ping()) {
     echo "Conexión exitosa a la base de datos.";
 } else {
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $stmt->bind_param('sssss', $nombre_completo, $nombre_usuario, $correo, $hash_contrasena, $telefono);
     if ($stmt->execute()) {
-        echo "Registro exitoso. Ahora puedes <a href='../HTML/Cliente/1_U_Iniciar_Sesion_Usuario.html'>Iniciar Sesión</a>.";
+        echo "Registro exitoso. Ahora puedes <a href='../../HTML/Cliente/1_Iniciar_Sesion.html'>Iniciar Sesión</a>.";
     } else {
         if ($stmt->errno === 1062) {
             echo "Error: El correo o nombre de usuario ya está registrado.";

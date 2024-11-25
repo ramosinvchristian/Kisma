@@ -1,5 +1,13 @@
 <?php
-require '../PHP/1_U_R_E_db_config.php';
+require '../db_config.php';
+if ($conn->ping()) {
+    echo "Conexión exitosa a la base de datos.";
+} else {
+    echo "Error de conexión: " . $conn->error;
+}
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre_completo = htmlspecialchars(trim($_POST['nombre-empleado']));
     $usuario = htmlspecialchars(trim($_POST['usuario-empleado']));
@@ -9,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contrasena = trim($_POST['contrasena-empleado']);
     $confirmar_contrasena = trim($_POST['confirmar-contrasena-empleado']);
     $tipo_vehiculo = htmlspecialchars(trim($_POST['tipo-vehiculo']));
-$anio_vehiculo = intval($_POST['anio-vehiculo']);
-$numero_placa = htmlspecialchars(trim($_POST['numero-placa']));
-$numero_cuenta = htmlspecialchars(trim($_POST['numero-cuenta']));
+    $anio_vehiculo = intval($_POST['anio-vehiculo']);
+    $numero_placa = htmlspecialchars(trim($_POST['numero-placa']));
+    $numero_cuenta = htmlspecialchars(trim($_POST['numero-cuenta']));
     $captcha = $_POST['captcha'] ?? '';
     $robot = isset($_POST['robot']);
     $terminos = isset($_POST['terminos']);
@@ -44,7 +52,7 @@ $numero_cuenta = htmlspecialchars(trim($_POST['numero-cuenta']));
     }
     $stmt->bind_param('ssssssssss', $nombre_completo, $usuario, $fecha_nacimiento, $telefono, $correo, $hash_contrasena, $tipo_vehiculo, $anio_vehiculo, $numero_placa, $numero_cuenta);
     if ($stmt->execute()) {
-        echo "Registro exitoso. Ahora puedes <a href='../HTML/1_E_Iniciar_Sesion_Empleado.html'>Iniciar Sesión</a>.";
+        echo "Registro exitoso. Ahora puedes <a href='../../HTML/Empleado/1_Iniciar_Sesion.html'>Iniciar Sesión</a>.";
     } else {
         if ($stmt->errno === 1062) {
             echo "Error: El correo o nombre de usuario ya está registrado.";

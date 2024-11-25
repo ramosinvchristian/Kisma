@@ -1,8 +1,8 @@
 <?php
-require '../PHP/1_U_R_E_db_config.php';
+require '../db_config.php';
 session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre_usuario = htmlspecialchars(trim($_POST['nombre-usuario']));
+    $nombre_usuario = htmlspecialchars(trim($_POST['usuario-gerente']));
     $contrasena = trim($_POST['contrasena']);
     if (empty($nombre_usuario) || empty($contrasena)) {
         die("Error: Nombre de usuario y contraseña son requeridos.");
@@ -17,13 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($contrasena, $user['contrasena_gerente'])) {
             $_SESSION['restaurante_id'] = $user['id'];
             $_SESSION['nombre_usuario'] = $user['usuario_gerente'];
-            header("Location: ../HTML/1_R_Pagina_Principal_Restaurante.html");
+            header("Location: ../../HTML/Restaurante/1_Pagina_Principal.html");
             exit();
         } else {
             echo "Error: Contraseña incorrecta.";
         }
     } else {
-        echo "Error: Usuario no encontrado.";
+        echo "Error: Restaurante no encontrado.";
     }
     $stmt->close();
     $conn->close();

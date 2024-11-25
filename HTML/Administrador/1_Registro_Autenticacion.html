@@ -8,11 +8,11 @@
     <script>
         function validarFormulario(event) {
             const tokenIngresado = document.getElementById('token-administrador').value;
-            const tokenCorrecto = '1o2s3o4n5n6y7';
+            const tokenCorrecto = 'Kisma123';
 
             if (tokenIngresado !== tokenCorrecto) {
                 alert("El token es incorrecto. Por favor, ingresa el token correcto.");
-                event.preventDefault(); // Prevenir el envío del formulario
+                event.preventDefault();
             }
         }
     </script>
@@ -23,7 +23,7 @@
         <h2 class="titulo-mediano">DELIVERY</h2>
         <p class="subtitulo">!Bienvenido. Dominemos el sabor!</p>
     
-        <form onsubmit="validarFormulario(event)">
+        <form action="../../PHP/Administrador/1_Registro.php" method="POST">
             <h3>Registro | Administrador</h3>
 
             <div class="form-group">
@@ -54,7 +54,7 @@
             <div class="form-group">
                 <label for="token-administrador">Token*</label>
                 <input type="text" id="token-administrador" name="token-administrador" required>
-                </div>
+            </div>
 
             <div class="captcha">
                 <p>Selecciona la imagen que contiene un árbol*</p>
@@ -75,12 +75,12 @@
     
             <div class="terminos">
                 <input type="checkbox" id="terminos" name="terminos" required>
-                <label for="terminos">Acepto los <a href="../Administrador/1_Terminos_Condiciones.html" target="_blank">términos y condiciones</a></label>
+                <label for="terminos">Acepto los <a href="1_Terminos_Condiciones.html" target="_blank">términos y condiciones</a></label>
             </div>
 
             <button type="submit">Registrarse</button>
             <div class="terminos">
-                <a href="../Administrador/1_Iniciar_Sesion.html">Iniciar Sesión</a></label>
+                <a href="1_Iniciar_Sesion.html">Iniciar Sesión</a></label>
                 </div>
         </form>
     </div>
