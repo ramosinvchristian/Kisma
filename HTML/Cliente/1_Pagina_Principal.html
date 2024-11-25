@@ -3,53 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kisma - Página Principal</title>
-    <link rel="stylesheet" href="1_Estilos.css">
+    <title>Kisma Delivery</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('/IMAGES/Fondo_Kisma.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 80%;
+            height: 80%;
+        }
+
+        .image-item {
+            text-align: center;
+            width: 30%;
+            cursor: pointer;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.1);
+        }
+
+        .caption {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #fff;
+            font-weight: bold;
+            padding: 5px;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            display: inline-block;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .image-item:hover .caption {
+            background-color: rgba(255, 255, 255, 0.7);
+            color: #000;
+            border-color: #000;
+        }
+
+        .image-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .admin-link {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.7em;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .admin-link:hover {
+            background-color: rgba(255, 255, 255, 0.7);
+            color: #000;
+        }
+    </style>
 </head>
 <body>
-    <header class="header">
-        <input 
-            type="text" 
-            placeholder="Buscar platillos o restaurantes..." 
-            id="search-bar" 
-            onclick="location.href='busqueda.html';"
-        >
-    </header>
-    <section class="categorias-principales">
-        <h2>Categorías Populares</h2>
-        <div class="categorias-container">
-            <button onclick="location.href='categorias.html?categoria=hamburguesa'">Hamburguesas</button>
-            <button onclick="location.href='categorias.html?categoria=sushi'">Sushi</button>
-            <button onclick="location.href='categorias.html?categoria=helados'">Helados</button>
-            <button onclick="location.href='categorias.html?categoria=barbacoa'">Barbacoa</button>
-            <button onclick="location.href='categorias.html?categoria=pizza'">Pizza</button>
-            <button onclick="location.href='categorias.html?categoria=tacos'">Tacos</button>
-            <button onclick="location.href='categorias.html?categoria=pollo'">Pollo</button>
-            <button onclick="location.href='categorias.html?categoria=antojitos'">Antojitos</button>
-            <button onclick="location.href='categorias.html?categoria=gorditas'">Gorditas</button>
-            <button onclick="location.href='categorias.html?categoria=tortas'">Tortas</button>
+    <div class="image-container">
+        <div class="image-item">
+            <a href="../../PHP/Clientes/Navegacion_Restaurante_Productos.php">
+                <img src="../../IMAGES/Restaurante.png" alt="Cliente">
+                <div class="caption">Restaurantes y Productos</div>
+            </a>
         </div>
-    </section>
-    <section class="promos">
-        <h2>Promociones</h2>
-        <button onclick="location.href='promos.html'">Ver Promociones</button>
-    </section>
-    <section class="envio-gratis">
-        <h2>Envío Gratis</h2>
-        <button onclick="location.href='envio_gratis.html'">Ver Restaurantes</button>
-    </section>
-    <section class="restaurantes">
-        <h2>Restaurantes Disponibles</h2>
-        <div class="restaurantes-lista">
-            <div class="restaurante">
-                <img src="/IMAGES/1_U_R_E_Imagen_Restaurante.png" alt="Restaurante Ejemplo">
-                <div class="info-restaurante">
-                    <h3>Restaurante Ejemplo</h3>
-                    <p>⭐⭐⭐⭐⭐ (4.5/5)</p>
-                    <button onclick="location.href='restaurante.html?id=1'">Ver Menú</button>
-                </div>
-            </div>
+        <div class="image-item">
+            <a href="../../PHP/Clientes/Creacion_pedidos.php">
+                <img src="../../IMAGES/pedidos.jpeg" alt="Empleado">
+                <div class="caption">Realizar/Cotizar un Pedido</div>
+            </a>
         </div>
-    </section>
+        <div class="image-item">
+            <a href="Restaurante/Historial_Pedidos.html">
+                <img src="../../IMAGES/historial.jpeg" alt="Restaurante">
+                <div class="caption">Ver el Historial de Pedidos</div>
+            </a>
+        </div>
+    </div>
 </body>
 </html>
