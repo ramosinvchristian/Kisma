@@ -3,68 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Restaurante</title>
-    <link rel="stylesheet" href="1_Estilos.css">
+    <title>Gestión de Productos</title>
+    <link rel="stylesheet" href="">
 </head>
 <body>
-    <header>
-        <h1>Bienvenido | Restaurante</h1>
-        <nav>
-            <a href="1_R_Agregar_Comida.php">Agregar Comida/Bebida</a>
-            <a href="1_R_Ver_Comidas.php">Ver Comidas/Bebidas</a>
-            <a href="../PHP/1_R_Cerrar_Sesion.php">Cerrar Sesión</a>
-        </nav>
-    </header>
-    <main>
-        <section>
-            <h2>Agregar comida o bebida</h2>
-            <form action="../PHP/1_R_Guardar_Comida.php" method="POST">
-                <div>
-                    <label for="nombre">Nombre del platillo/bebida*</label>
-                    <input type="text" id="nombre" name="nombre" required>
-                </div>
-                <div>
-                    <label for="descripcion">Descripción</label>
-                    <textarea id="descripcion" name="descripcion" rows="3"></textarea>
-                </div>
-                <div>
-                    <label for="cantidad">Cantidad (en unidades)*</label>
-                    <input type="number" id="cantidad" name="cantidad" min="1" required>
-                </div>
-                <div>
-                    <label for="precio">Precio por unidad*</label>
-                    <input type="number" id="precio" name="precio" step="0.01" min="0" required>
-                </div>
-                <div>
-                    <label for="fecha_caducidad">Fecha de caducidad*</label>
-                    <input type="date" id="fecha_caducidad" name="fecha_caducidad" required>
-                </div>
-                <div>
-                    <label for="categoria">Categoría*</label>
-                    <select id="categoria" name="categoria" required>
-                    <option value="">Selecciona una categoría</option>
-                    <option value="Hamburguesa">Hamburguesa</option>
-                    <option value="Sushi">Sushi</option>
-                    <option value="Helados">Helados</option>
-                    <option value="Barbacoa">Barbacoa</option>
-                    <option value="Pizza">Pizza</option>
-                    <option value="Tacos">Tacos</option>
-                    <option value="Pollo">Alitas y Pollo</option>
-                    <option value="Antojitos">Antojitos</option>
-                    <option value="Gorditas">Gorditas</option>
-                    <option value="Tortas">Tortas</option>
-                    <option value="Otro">Otro</option>
-                    </select>
-                </div>
-                <div>
-                    <input type="hidden" name="fecha_entrada" value="<?php echo date('Y-m-d'); ?>">
-                </div>
-                <button type="submit">Agregar</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Kisma Delivery</p>
-    </footer>
+    <h1>Bienvenido a la gestión de productos</h1>
+    <a href="2_Gestion_Productos.html">Gestionar Productos</a>
 </body>
 </html>

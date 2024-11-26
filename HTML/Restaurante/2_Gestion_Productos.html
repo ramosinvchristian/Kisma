@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos</title>
+    <script src="productos.js" defer></script>
+</head>
+<body>
+    <h1>Gestión de Productos</h1>
+    <form id="crearProductoForm">
+        <h2>Añadir Producto</h2>
+        <label for="nombre_producto">Nombre del Producto:</label>
+        <input type="text" id="nombre_producto" name="nombre_producto" required>
+        <br>
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" required></textarea>
+        <br>
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio" step="0.01" required>
+        <br>
+        <label for="disponible">Disponible:</label>
+        <input type="checkbox" id="disponible" name="disponible">
+        <br>
+        <button type="submit">Añadir Producto</button>
+    </form>
+    <hr>
+    <h2>Lista de Productos</h2>
+    <div id="productosLista"></div>
+</body>
+</html>
