@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $stmt->bind_param('ssssssssss', $nombre_completo, $usuario, $fecha_nacimiento, $telefono, $correo, $hash_contrasena, $tipo_vehiculo, $anio_vehiculo, $numero_placa, $numero_cuenta);
     if ($stmt->execute()) {
-        echo "Registro exitoso. Ahora puedes <a href='../../HTML/Empleado/1_Iniciar_Sesion.html'>Iniciar Sesión</a>.";
+        echo "Registro exitoso. Ahora puedes <a href='../../HTML/Empleado/1_Iniciar_Sesion.php'>Iniciar Sesión</a>.";
     } else {
         if ($stmt->errno === 1062) {
             echo "Error: El correo o nombre de usuario ya está registrado.";
