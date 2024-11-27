@@ -16,10 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
         if (password_verify($contrasena, $user['contrasena_empleado'])) {
-            $_SESSION['empleado_id'] = $user['id'];
+            $_SESSION['id_empleado'] = $user['id'];
             $_SESSION['nombre_usuario'] = $user['usuario_empleado'];
             header("Location: ../../HTML/Empleado/1_Pagina_Principal.php");
             exit();
+            
         } else {
             echo "Error: Contraseña incorrecta.";
         }

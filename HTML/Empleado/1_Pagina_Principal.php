@@ -1,21 +1,29 @@
 <?php
 session_start();
-include('../db_config.php');  
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Verificar si la sesión está iniciada correctamente
 if (!isset($_SESSION['id_empleado'])) {
     die("Error: No se ha iniciado sesión correctamente.");
 }
 
-include('../db_config.php');
+include('../../PHP/db_config.php');
 
 // Obtener el id del empleado desde la sesión
 $id_empleado = $_SESSION['id_empleado'];
 
 // Obtener los pedidos asignados a este empleado
-$sql = "SELECT p.id_pedido, p.estado, p.fecha_pedido, c.nombre_cliente, c.direccion
+$sql = "SELECT p.id_pedido, p.estado, p.fecha_pedido, c.nombre_completo AS nombre_cliente, p.direccion_entrega
         FROM pedidos p
-        JOIN clientes c ON p.id_cliente = c.id_cliente
+        JOIN clientes c ON p.id_cliente = c.id
         WHERE p.id_empleado IS NULL OR p.id_empleado = ?";
+
+
+
+
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_empleado);
 $stmt->execute();
@@ -74,7 +82,7 @@ $pedidos = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                         <tr>
                             <td><?php echo htmlspecialchars($pedido['id_pedido']); ?></td>
                             <td><?php echo htmlspecialchars($pedido['nombre_cliente']); ?></td>
-                            <td><?php echo htmlspecialchars($pedido['direccion']); ?></td>
+                            <td><?php echo htmlspecialchars($pedido['direccion_entrega']); ?></td>
                             <td><?php echo htmlspecialchars($pedido['estado']); ?></td>
                             <td>
                                 <?php if ($pedido['estado'] == 'Pendiente'): ?>
