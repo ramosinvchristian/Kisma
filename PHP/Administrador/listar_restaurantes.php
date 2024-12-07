@@ -12,13 +12,29 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-$sql = "SELECT id, nombre_restaurante, categoria, descripcion, direccion, ciudad, codigo_postal, horario, telefono_restaurante, correo_restaurante, nombre_gerente FROM restaurantes";
+// Aplicar filtros
+$condicion = "";
+if (isset($_GET['filtro']) && isset($_GET['valor']) && !empty($_GET['valor'])) {
+    $filtro = $_GET['filtro'];
+    $valor = $_GET['valor'];
+    $condicion = " WHERE $filtro LIKE '%$valor%'";
+}
+
+$sql = "SELECT id, 
+               nombre_restaurante, 
+               codigo_postal, 
+               telefono_restaurante, 
+               correo_restaurante, 
+               nombre_gerente 
+        FROM restaurantes $condicion";
+
 $result = $conn->query($sql);
 
 if (!$result) {
     die("Error al obtener los restaurantes: " . $conn->error);
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -50,25 +66,43 @@ if (!$result) {
         .titulo {
             margin-bottom: 20px;
         }
+        form {
+            margin-bottom: 20px;
+        }
+        input, select, button {
+            padding: 5px;
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="contenedor">
         <h1 class="titulo">Lista de Restaurantes</h1>
+
+        <form action="listar_restaurantes.php" method="GET">
+            <label for="filtro">Filtrar por:</label>
+            <select name="filtro" id="filtro">
+                <option value="id">ID</option>
+                <option value="nombre_restaurante">Nombre</option>
+                <option value="codigo_postal">Código Postal</option>
+                <option value="telefono_restaurante">Teléfono</option>
+                <option value="correo_restaurante">Correo</option>
+                <option value="nombre_gerente">Gerente</option>
+            </select>
+            <input type="text" name="valor" placeholder="Valor a buscar">
+            <button type="submit">Buscar</button>
+        </form>
+
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>ID</th>          
                     <th>Nombre</th>
-                    <th>Categoría</th>
-                    <th>Descripción</th>
-                    <th>Dirección</th>
-                    <th>Ciudad</th>
                     <th>Código Postal</th>
-                    <th>Horario</th>
                     <th>Teléfono</th>
                     <th>Correo</th>
                     <th>Gerente</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,12 +110,7 @@ if (!$result) {
                     <tr>
                         <td><?= htmlspecialchars($row['id']) ?></td>
                         <td><?= htmlspecialchars($row['nombre_restaurante']) ?></td>
-                        <td><?= htmlspecialchars($row['categoria']) ?></td>
-                        <td><?= htmlspecialchars($row['descripcion']) ?></td>
-                        <td><?= htmlspecialchars($row['direccion']) ?></td>
-                        <td><?= htmlspecialchars($row['ciudad']) ?></td>
                         <td><?= htmlspecialchars($row['codigo_postal']) ?></td>
-                        <td><?= htmlspecialchars($row['horario']) ?></td>
                         <td><?= htmlspecialchars($row['telefono_restaurante']) ?></td>
                         <td><?= htmlspecialchars($row['correo_restaurante']) ?></td>
                         <td><?= htmlspecialchars($row['nombre_gerente']) ?></td>
@@ -98,6 +127,7 @@ if (!$result) {
     </div>
 </body>
 </html>
+
 <?php
 $conn->close();
 ?>

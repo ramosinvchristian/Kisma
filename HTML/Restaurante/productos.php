@@ -28,27 +28,42 @@ if ($accion === 'crear') {
         echo "Todos los campos son obligatorios.";
     }
     exit;
-    } elseif ($accion === 'listar') {
-        try {
-            $result = $conn->query("SELECT id_producto, nombre_producto, precio FROM productos WHERE id_restaurante = 1");
-            $productos = [];
-            while ($row = $result->fetch_assoc()) {
-                $productos[] = $row;
-            }
-
-            // Verifica si la consulta devolvió resultados
-            if (empty($productos)) {
-                header('Content-Type: application/json');
-                echo json_encode([]);
-                exit;
-            }
-
-            header('Content-Type: application/json');
-            echo json_encode($productos);
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode(["error" => "Error al listar productos", "detalle" => $e->getMessage()]);
+} elseif ($accion === 'listar') {
+    try {
+        $result = $conn->query("SELECT id_producto, nombre_producto, descripcion, precio, disponible FROM productos WHERE id_restaurante = 1");
+        $productos = [];
+        while ($row = $result->fetch_assoc()) {
+            $productos[] = [
+                'id_producto' => $row['id_producto'],
+                'nombre_producto' => $row['nombre_producto'],
+                'descripcion' => $row['descripcion'],
+                'precio' => $row['precio'],
+                'disponible' => $row['disponible'],
+            ];
         }
-        exit;
+        header('Content-Type: application/json');
+        echo json_encode($productos);
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(["error" => "Error al listar productos", "detalle" => $e->getMessage()]);
     }
+    exit;
+} elseif ($accion === 'eliminar') {
+    $id_producto = $_GET['id_producto'] ?? null;
+    if ($id_producto) {
+        $sql = "DELETE FROM productos WHERE id_producto = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id_producto);
+        if ($stmt->execute()) {
+            echo "Producto eliminado con éxito.";
+        } else {
+            http_response_code(500);
+            echo "Error al eliminar el producto: " . $conn->error;
+        }
+    } else {
+        http_response_code(400);
+        echo "ID del producto no proporcionado.";
+    }
+    exit;
+}
 ?>

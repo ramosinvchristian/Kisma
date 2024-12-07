@@ -42,4 +42,5 @@ $pedidos = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         <p>No hay pedidos en tu historial.</p>
     <?php endif; ?>
 </body>
+<br><strong>Gracias por tu preferencia | Kisma</strong></br>
 </html>

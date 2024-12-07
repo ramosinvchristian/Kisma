@@ -6,6 +6,65 @@
     <title>Kisma Delivery</title>
     <link rel="stylesheet" href="1_Estilos.css">
 </head>
+<link rel="stylesheet" href="1_Estilos.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 80%;
+            height: 80%;
+        }
+
+        .image-item {
+            text-align: center;
+            width: 30%;
+            cursor: pointer;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.1);
+        }
+
+        .caption {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #fff;
+            font-weight: bold;
+            padding: 5px;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            display: inline-block;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .image-item:hover .caption {
+            background-color: rgba(255, 255, 255, 0.7);
+            color: #000;
+            border-color: #000;
+        }
+
+
+    </style>
 <body>
     <div class="image-container">
         <div class="image-item">

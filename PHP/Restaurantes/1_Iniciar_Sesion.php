@@ -15,7 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
         if (password_verify($contrasena, $user['contrasena_gerente'])) {
-            $_SESSION['restaurante_id'] = $user['id'];
+            $_SESSION['id_restaurante'] = $user['id'];
+
             $_SESSION['nombre_usuario'] = $user['usuario_gerente'];
             header("Location: ../../HTML/Restaurante/1_Pagina_Principal.html");
             exit();

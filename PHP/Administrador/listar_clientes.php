@@ -1,19 +1,33 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require '../db_config.php';
+
 session_start();
 
+// Verificar si el administrador está autenticado
 if (!isset($_SESSION['admin_id'])) {
     header("Location: ../../HTML/Administrador/1_Iniciar_Sesion.html");
     exit();
 }
 
-$sql = "SELECT id, nombre_completo, nombre_usuario, correo, telefono, created_at FROM clientes";
+$condicion = "";
+if (isset($_GET['filtro']) && isset($_GET['valor']) && !empty($_GET['valor'])) {
+    $filtro = $_GET['filtro'];
+    $valor = $_GET['valor'];
+    $condicion = " WHERE $filtro LIKE '%$valor%'";
+}
+
+$sql = "SELECT id, nombre_completo, nombre_usuario, correo, telefono, created_at FROM clientes $condicion";
 $result = $conn->query($sql);
 
 if (!$result) {
     die("Error al obtener los clientes: " . $conn->error);
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -45,20 +59,43 @@ if (!$result) {
         .titulo {
             margin-bottom: 20px;
         }
+        form {
+            margin-bottom: 20px;
+        }
+        input, select, button {
+            padding: 5px;
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="contenedor">
         <h1 class="titulo">Lista de Clientes</h1>
+
+        <form action="listar_clientes.php" method="GET">
+            <label for="filtro">Filtrar por:</label>
+            <select name="filtro" id="filtro">
+                <option value="id">ID</option>
+                <option value="nombre_completo">Nombre</option>
+                <option value="nombre_usuario">Usuario</option>
+                <option value="correo">Correo</option>
+                <option value="telefono">Teléfono</option>
+                <option value="created_at">Fecha de Registro</option>
+            </select>
+            <input type="text" name="valor" placeholder="Valor a buscar">
+            <button type="submit">Buscar</button>
+        </form>
+
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nombre Completo</th>
-                    <th>Nombre de Usuario</th>
+                    <th>Nombre Usuario</th>
                     <th>Correo</th>
                     <th>Teléfono</th>
                     <th>Fecha de Registro</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,12 +107,7 @@ if (!$result) {
                         <td><?= htmlspecialchars($row['correo']) ?></td>
                         <td><?= htmlspecialchars($row['telefono']) ?></td>
                         <td><?= htmlspecialchars($row['created_at']) ?></td>
-                        <td>
-                            <form action="eliminar_cliente.php" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este cliente?');">
-                                <input type="hidden" name="id_cliente" value="<?= htmlspecialchars($row['id']) ?>">
-                                <button type="submit">Eliminar</button>
-                            </form>
-                        </td>
+                        <td><a href="eliminar_cliente.php?id=<?= $row['id'] ?>" onclick="return confirm('¿Estás seguro de eliminar este cliente?');">Eliminar</a></td>
                     </tr>
                 <?php endwhile; ?>
             </tbody>
@@ -83,6 +115,7 @@ if (!$result) {
     </div>
 </body>
 </html>
+
 <?php
 $conn->close();
 ?>
