@@ -185,7 +185,7 @@ if ($id_cliente && $id_restaurante && !empty($productos)) {
     </style>
 </head>
 <body>
-    <h1>Crear Pedido</h1>
+    <h1>Crear Pedidos extra</h1>
     <form method="POST" action="">
         <label for="id_cliente">ID Cliente:</label>
         <input type="number" id="id_cliente" name="id_cliente" required>
