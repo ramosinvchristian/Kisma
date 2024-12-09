@@ -5,17 +5,14 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Verificar si la sesión está iniciada correctamente
 if (!isset($_SESSION['id_empleado'])) {
     die("Error: No se ha iniciado sesión correctamente.");
 }
 
 include('../../PHP/db_config.php');
 
-// Obtener el id del empleado desde la sesión
 $id_empleado = $_SESSION['id_empleado'];
 
-// Obtener los pedidos asignados a este empleado
 $sql = "SELECT p.id_pedido, p.estado, p.fecha_pedido, c.nombre_completo AS nombre_cliente, p.direccion_entrega
         FROM pedidos p
         JOIN clientes c ON p.id_cliente = c.id
@@ -30,7 +27,6 @@ $stmt->execute();
 $pedidos = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 ?>
 
-<!-- HTML del archivo -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -38,7 +34,6 @@ $pedidos = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal - Empleado</title>
     <link rel="stylesheet" href="1_Estilos.css">
-    <link rel="stylesheet" href="2_Estilos.css">
 </head>
 <body>
     <header>
@@ -56,14 +51,6 @@ $pedidos = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     </header>
 
     <main>
-        <section id="perfil" class="seccion">
-            <h2>Perfil del Empleado</h2>
-            <p><strong>Nombre:</strong> [Nombre del empleado]</p>
-            <p><strong>Teléfono:</strong> [Teléfono del empleado]</p>
-            <p><strong>Tipo de Vehículo:</strong> [Tipo de vehículo]</p>
-            <p><strong>Año del Vehículo:</strong> [Año del vehículo]</p>
-            <p><strong>Número de Placa:</strong> [Número de placa]</p>
-        </section>
 
         <section id="pedidos" class="seccion">
             <h2>Pedidos Asignados</h2>
@@ -103,20 +90,35 @@ $pedidos = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     </footer>
 
     <script>
-        function actualizarEstado(id_pedido, estado) {
-            if (confirm(`¿Deseas cambiar el estado del pedido ${id_pedido} a "${estado}"?`)) {
-                fetch(`../PHP/Empleado/actualizar_estado.php?id_pedido=${id_pedido}&estado=${estado}`)
-                    .then(response => response.text())
-                    .then(data => {
-                        alert(data);
-                        location.reload(); // Recargar la página para actualizar el estado
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Ocurrió un error al actualizar el estado.');
-                    });
-            }
-        }
+function actualizarEstado(id_pedido, estado) {
+    if (confirm(`¿Deseas cambiar el estado del pedido ${id_pedido} a "${estado}"?`)) {
+        fetch(`../../PHP/Empleados/actualizar_estado.php?id_pedido=${id_pedido}&estado=${estado}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error en el servidor: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    if (data.estado === "Entregado") {
+    document.querySelector(`tr[data-id="${id_pedido}"]`).remove();
+}
+
+                    alert(`Estado del pedido ${id_pedido} actualizado a "${data.estado}".`);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al actualizar el estado.');
+            });
+    }
+}
+
+
+
 
         function rechazarPedido(id_pedido) {
             if (confirm(`¿Deseas rechazar el pedido ${id_pedido}?`)) {
@@ -124,7 +126,7 @@ $pedidos = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                     .then(response => response.text())
                     .then(data => {
                         alert(data);
-                        location.reload(); // Recargar la página para actualizar los pedidos
+                        location.reload();
                     })
                     .catch(error => {
                         console.error('Error:', error);
@@ -132,6 +134,55 @@ $pedidos = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                     });
             }
         }
+
+            document.addEventListener('DOMContentLoaded', () => {
+        // Añade el evento a los botones de acciones al cargar la página
+        const botonesAccion = document.querySelectorAll('button');
+
+        botonesAccion.forEach(boton => {
+            boton.addEventListener('click', (event) => {
+                const accion = boton.textContent.trim(); // Obtener texto del botón
+                const idPedido = boton.parentElement.parentElement.querySelector('td').textContent.trim(); // ID del pedido
+
+                if (accion.includes('Marcar como En Camino')) {
+                    manejarAccionPedido(idPedido, 'En Camino', boton);
+                } else if (accion.includes('Marcar como Entregado')) {
+                    manejarAccionPedido(idPedido, 'Entregado', boton);
+                } else if (accion.includes('Rechazar Pedido')) {
+                    rechazarPedido(idPedido, boton);
+                }
+            });
+        });
+    });
+
+    /**
+     * Manejar el cambio de estado del pedido
+     * @param {string} idPedido - ID del pedido
+     * @param {string} nuevoEstado - Nuevo estado del pedido
+     * @param {HTMLElement} boton - Botón presionado
+     */
+    function manejarAccionPedido(idPedido, nuevoEstado, boton) {
+        if (confirm(`¿Deseas cambiar el estado del pedido ${idPedido} a "${nuevoEstado}"?`)) {
+            // Simulación de acción (luego se conectará al backend)
+            console.log(`Cambiando estado del pedido ${idPedido} a "${nuevoEstado}"`);
+            boton.classList.add('activo');
+            alert(`Estado del pedido ${idPedido} actualizado a "${nuevoEstado}".`);
+        }
+    }
+
+    /**
+     * Manejar el rechazo de un pedido
+     * @param {string} idPedido - ID del pedido
+     * @param {HTMLElement} boton - Botón presionado
+     */
+    function rechazarPedido(idPedido, boton) {
+        if (confirm(`¿Deseas rechazar el pedido ${idPedido}?`)) {
+            // Simulación de acción (luego se conectará al backend)
+            console.log(`Rechazando pedido ${idPedido}`);
+            boton.classList.add('activo');
+            alert(`Pedido ${idPedido} rechazado.`);
+        }
+    }
     </script>
 </body>
 </html>
