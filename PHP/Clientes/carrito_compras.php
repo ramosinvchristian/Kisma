@@ -3,12 +3,12 @@ session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Inicializar carrito si no existe
+
 if (!isset($_SESSION['carrito'])) {
     $_SESSION['carrito'] = [];
 }
 
-// Procesar formulario de productos
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_producto = $_POST['id_producto'] ?? null;
     $nombre_producto = $_POST['nombre_producto'] ?? '';
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cantidad = $_POST['cantidad'] ?? 1;
 
     if ($id_producto && $cantidad > 0) {
-        // Verificar si el producto ya está en el carrito
+        
         $encontrado = false;
         foreach ($_SESSION['carrito'] as &$producto) {
             if ($producto['id_producto'] == $id_producto) {
@@ -26,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // Agregar nuevo producto si no existe en el carrito
         if (!$encontrado) {
             $_SESSION['carrito'][] = [
                 'id_producto' => $id_producto,
@@ -38,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Eliminar producto del carrito
+
 if (isset($_GET['eliminar'])) {
     $id_producto = $_GET['eliminar'];
     $_SESSION['carrito'] = array_filter($_SESSION['carrito'], function ($producto) use ($id_producto) {
@@ -46,7 +45,7 @@ if (isset($_GET['eliminar'])) {
     });
 }
 
-// Vaciar carrito
+
 if (isset($_GET['vaciar'])) {
     $_SESSION['carrito'] = [];
 }

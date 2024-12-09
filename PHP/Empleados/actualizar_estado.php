@@ -2,11 +2,11 @@
 
 
 header('Content-Type: application/json; charset=utf-8');
-ob_start(); // Captura cualquier salida inesperada
+ob_start();
 
 session_start();
 
-include('../db_config.php'); // Ajusta la ruta a tu archivo de configuración de la base de datos
+include('../db_config.php');
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -19,7 +19,7 @@ if (!isset($_SESSION['id_empleado'])) {
     exit;
 }
 
-// Verificar los parámetros
+
 if (isset($_GET['id_pedido']) && isset($_GET['estado'])) {
     $id_pedido = intval($_GET['id_pedido']);
     $estado = $_GET['estado'];
@@ -32,7 +32,7 @@ if (!in_array($estado, $estados_permitidos)) {
 
 
     try {
-        // Verificar si el pedido existe
+        
         $sql_check = "SELECT id_pedido FROM pedidos WHERE id_pedido = ?";
         $stmt_check = $conn->prepare($sql_check);
         $stmt_check->bind_param("i", $id_pedido);
@@ -40,7 +40,7 @@ if (!in_array($estado, $estados_permitidos)) {
         $result_check = $stmt_check->get_result();
 
         if ($result_check->num_rows > 0) {
-            // El pedido existe, procedemos a actualizarlo
+            
             $sql_update = "UPDATE pedidos SET estado = ? WHERE id_pedido = ?";
             $stmt_update = $conn->prepare($sql_update);
             $stmt_update->bind_param("si", $estado, $id_pedido);
@@ -55,7 +55,7 @@ if (!in_array($estado, $estados_permitidos)) {
 
             if ($stmt_update->execute()) {
                 if ($estado === 'Entregado') {
-                    // Actualiza el estado a "Archivado"
+                    
                     $sql_archive = "UPDATE pedidos SET estado = 'Archivado' WHERE id_pedido = ?";
                     $stmt_archive = $conn->prepare($sql_archive);
                     $stmt_archive->bind_param("i", $id_pedido);
@@ -93,7 +93,7 @@ $conn->close();
 
 error_log("Estado recibido: " . $estado);
 
-$output = ob_get_clean(); // Obtén el contenido capturado
+$output = ob_get_clean();
 if (!empty($output)) {
     error_log("Salida inesperada: " . $output);
 }

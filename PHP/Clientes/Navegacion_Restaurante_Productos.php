@@ -3,7 +3,7 @@ include('../db_config.php');
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Obtener restaurantes
+
 $result = $conn->query("SELECT id, nombre_restaurante FROM restaurantes");
 if (!$result) {
     die("Error en la consulta: " . $conn->error);

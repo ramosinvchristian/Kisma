@@ -1,17 +1,15 @@
 <?php
 require '../db_config.php';
-require '../../vendor/autoload.php'; // Ruta de Dompdf en Composer
+require '../../vendor/autoload.php';
 
 use Dompdf\Dompdf;
 
-// Validar sesión del administrador
 session_start();
 if (!isset($_SESSION['admin_id'])) {
     header("Location: ../../HTML/Administrador/1_Iniciar_Sesion.html");
     exit();
 }
 
-// Obtener datos de restaurantes
 $sql = "SELECT id, nombre_restaurante, codigo_postal, telefono_restaurante, correo_restaurante, nombre_gerente FROM restaurantes";
 $result = $conn->query($sql);
 
@@ -19,7 +17,6 @@ if (!$result) {
     die("Error al obtener los restaurantes: " . $conn->error);
 }
 
-// Construir HTML para el PDF
 $html = '
 <!DOCTYPE html>
 <html lang="es">
@@ -66,7 +63,6 @@ $html = '
         </thead>
         <tbody>';
 
-// Agregar datos al HTML
 while ($row = $result->fetch_assoc()) {
     $html .= '
             <tr>
@@ -85,13 +81,11 @@ $html .= '
 </body>
 </html>';
 
-// Generar el PDF con Dompdf 0.6.2
 $dompdf = new Dompdf();
-$dompdf->load_html($html); // Método antiguo para cargar HTML
-$dompdf->set_paper('A4', 'landscape'); // Configurar tamaño y orientación del papel
+$dompdf->load_html($html);
+$dompdf->set_paper('A4', 'landscape');
 $dompdf->render();
 
-// Descargar el archivo PDF
 $dompdf->stream("reporte_restaurantes.pdf", ["Attachment" => true]);
 exit();
 ?>

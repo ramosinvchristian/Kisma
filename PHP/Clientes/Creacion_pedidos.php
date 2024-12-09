@@ -3,17 +3,17 @@ include('../db_config.php');
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Validar datos recibidos
-$direccion_entrega = $_POST['direccion_entrega'] ?? 'Dirección no especificada'; // Valor por defecto si no se ingresa
+
+$direccion_entrega = $_POST['direccion_entrega'] ?? 'Dirección no especificada';
 $id_cliente = $_POST['id_cliente'] ?? null;
 $id_restaurante = $_POST['id_restaurante'] ?? null;
-$productos = $_POST['productos'] ?? []; // Array con id_producto, cantidad, precio_unitario
+$productos = $_POST['productos'] ?? [];
 
 if ($id_cliente && $id_restaurante && !empty($productos)) {
     $conn->begin_transaction();
 
     try {
-        // Verificar si el cliente existe
+        
         $sql_verificar_cliente = "SELECT COUNT(*) as existe FROM clientes WHERE id = ?";
         $stmt_verificar = $conn->prepare($sql_verificar_cliente);
         $stmt_verificar->bind_param("i", $id_cliente);
@@ -25,17 +25,17 @@ if ($id_cliente && $id_restaurante && !empty($productos)) {
             throw new Exception("El cliente con ID $id_cliente no existe.");
         }
 
-        // Crear el pedido con la dirección de entrega
+        
         $sql_pedido = "INSERT INTO pedidos (id_cliente, id_restaurante, estado, total, fecha_pedido, direccion_entrega) 
                        VALUES (?, ?, 'Pendiente', 0, NOW(), ?)";
         $stmt_pedido = $conn->prepare($sql_pedido);
         $stmt_pedido->bind_param("iis", $id_cliente, $id_restaurante, $direccion_entrega);
         $stmt_pedido->execute();
 
-        $id_pedido = $stmt_pedido->insert_id; // Obtener el ID del pedido recién creado
+        $id_pedido = $stmt_pedido->insert_id;
         $total = 0;
 
-        // Insertar los productos en detalle_pedido
+        
         $sql_detalle = "INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad, precio_unitario) 
                         VALUES (?, ?, ?, ?)";
         $stmt_detalle = $conn->prepare($sql_detalle);
@@ -51,7 +51,7 @@ if ($id_cliente && $id_restaurante && !empty($productos)) {
             $stmt_detalle->execute();
         }
 
-        // Actualizar el total del pedido
+        
         $sql_update_total = "UPDATE pedidos SET total = ? WHERE id_pedido = ?";
         $stmt_update = $conn->prepare($sql_update_total);
         $stmt_update->bind_param("di", $total, $id_pedido);
@@ -159,7 +159,7 @@ if ($id_cliente && $id_restaurante && !empty($productos)) {
             text-align: center;
             width: 100%;
             max-width: 600px;
-            display: none; /* Oculto por defecto */
+            display: none;
         }
 
         .mensaje.error {
@@ -231,7 +231,7 @@ if ($id_cliente && $id_restaurante && !empty($productos)) {
             contador++;
         }
 
-        // Mostrar mensaje de éxito o error (simulación)
+        
         function mostrarMensaje(tipo, texto) {
             const mensajeDiv = document.getElementById('mensaje');
             mensajeDiv.className = tipo === 'error' ? 'mensaje error' : 'mensaje';
@@ -239,7 +239,7 @@ if ($id_cliente && $id_restaurante && !empty($productos)) {
             mensajeDiv.style.display = 'block';
         }
 
-        // Simulación (puedes reemplazar esto por la lógica real después de procesar el formulario)
+        
         document.querySelector('form').addEventListener('submit', (e) => {
             e.preventDefault();
             mostrarMensaje('success', 'Pedido creado con éxito. ID del pedido: 21');

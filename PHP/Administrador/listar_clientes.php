@@ -7,7 +7,7 @@ require '../db_config.php';
 
 session_start();
 
-// Verificar si el administrador está autenticado
+
 if (!isset($_SESSION['admin_id'])) {
     header("Location: ../../HTML/Administrador/1_Iniciar_Sesion.html");
     exit();

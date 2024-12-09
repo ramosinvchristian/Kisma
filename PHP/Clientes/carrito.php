@@ -4,23 +4,16 @@ include('../db_config.php');
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-/*
-// Verificar si el cliente está autenticado
-if (!isset($_SESSION['cliente_id'])) {
-    header("Location: login_cliente.php");
-    exit();
-}
-*/
 
 $id_cliente = $_SESSION['usuario_id'];
 $carrito = $_SESSION['carrito'] ?? [];
 
-// Validar que el carrito no esté vacío
+
 if (empty($carrito)) {
     die("El carrito está vacío.");
 }
 
-// Validar que todos los productos pertenezcan al mismo restaurante
+
 $id_restaurante = $carrito[0]['id_restaurante'] ?? null;
 if (!$id_restaurante) {
     die("Error: No se pudo determinar el restaurante para este pedido.");
@@ -31,12 +24,12 @@ foreach ($carrito as $item) {
     }
 }
 
-// Procesar la compra
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['finalizar_compra'])) {
     $direccion_entrega = $_POST['direccion_entrega'];
     $total = array_sum(array_map(fn($item) => $item['precio'] * $item['cantidad'], $carrito));
 
-    // Insertar pedido
+    
     $stmt_pedido = $conn->prepare("
         INSERT INTO pedidos (id_cliente, id_restaurante, fecha_pedido, estado, direccion_entrega, total) 
         VALUES (?, ?, NOW(), 'Pendiente', ?, ?)
@@ -45,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['finalizar_compra'])) 
     $stmt_pedido->execute();
     $id_pedido = $stmt_pedido->insert_id;
 
-    // Insertar detalles del pedido
+
     $stmt_detalle = $conn->prepare("
         INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad, precio_unitario, subtotal) 
         VALUES (?, ?, ?, ?, ?)
@@ -56,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['finalizar_compra'])) 
         $stmt_detalle->execute();
     }
 
-    // Vaciar el carrito
+
     $_SESSION['carrito'] = [];
     echo "<p>Compra realizada con éxito.</p><a href='productos.php'>Volver a productos</a>";
     exit();

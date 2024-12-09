@@ -3,10 +3,8 @@ include('../db_config.php');
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Simular autenticación (reemplazar con el sistema real)
-$id_cliente = 1; // Este ID debería venir de la sesión del cliente logueado
+$id_cliente = 1;
 
-// Obtener historial de pedidos
 $sql = "SELECT p.id_pedido, dp.cantidad, p.estado, pr.nombre_producto, p.fecha_pedido
         FROM pedidos p
         JOIN detalle_pedido dp ON p.id_pedido = dp.id_pedido

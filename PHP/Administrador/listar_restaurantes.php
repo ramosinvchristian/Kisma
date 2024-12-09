@@ -12,7 +12,6 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-// Aplicar filtros
 $condicion = "";
 if (isset($_GET['filtro']) && isset($_GET['valor']) && !empty($_GET['valor'])) {
     $filtro = $_GET['filtro'];
